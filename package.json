@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@tailwindcss/cli": "^4.2.1",
+    "tailwindcss": "^4.2.1"
+  },
+    "scripts": {
+    "dev": "tailwindcss -i src/input.css -o output.css --watch",
+    "serve": "browser-sync start --server --files \"*html, output.css\" --reload-delay 300 --reload-debounce 500 --watch",
+    "start": "npm-run-all --parallel dev serve"
+  }
+}
