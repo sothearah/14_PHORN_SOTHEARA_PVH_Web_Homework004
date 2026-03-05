@@ -5,7 +5,7 @@ let selectedStatus = "";
 
 // form
 function openForm() {
-    selectedPriority = "";
+  selectedPriority = "";
   selectedStatus = "";
   document.getElementById("form-container").classList.remove("hidden");
   document.getElementById("input-task").value = "";
@@ -44,7 +44,6 @@ function selectPriority(priority, button) {
   selectedPriority = priority;
 }
 
-
 function selectStatus(status, button) {
   document.querySelectorAll(".status-btn").forEach((btn) => {
     btn.classList.remove("bg-cyan-500", "text-white");
@@ -53,7 +52,6 @@ function selectStatus(status, button) {
   button.classList.add("bg-cyan-500", "text-white");
   selectedStatus = status;
 }
-
 
 function AddTask() {
   const taskInput = document.getElementById("input-task");
@@ -64,31 +62,30 @@ function AddTask() {
     return;
   }
 
-  if (selectedPriority === "") {
-    alert("Please select a priority");
-    return;
-  }
-
-  if (selectedStatus === "") {
-    alert("Please select a status");
-    return;
-  }
-
-
+  let priority = selectedPriority;
+  let status = selectedStatus;
   let priorityColor = "";
+  let defaultValue = "";
   if (selectedPriority === "High") priorityColor = "red";
   else if (selectedPriority === "Medium") priorityColor = "yellow";
   else if (selectedPriority === "Low") priorityColor = "green";
 
+  if (selectedPriority === "") {
+    priority = "Medium";
+  }
+
+  if (selectedStatus === "") {
+    status = "To Do";
+  }
+
   const taskList = document.getElementById("task-list");
   const taskItem = document.createElement("li");
 
-  taskItem.className =
+taskItem.className =
     "flex justify-between items-center p-3 rounded-lg";
-
   taskItem.innerHTML = `
         <div class="flex items-center gap-3">
-            <span class=" bg-${priorityColor}-500"></span>
+            <span class=" bg-${priorityColor}-500 p-"></span>
             <span >${taskText}</span>
             <span class="text-xs px-2 py-1 bg-${priorityColor}-100 text-${priorityColor}-700">
                 ${selectedPriority}
@@ -100,7 +97,7 @@ function AddTask() {
             <i class="fa-regular fa-trash-can" style="color: rgb(252, 135, 116);"></i>
         </button>
     `;
-    
+
   taskList.appendChild(taskItem);
   closeForm();
 }
@@ -120,18 +117,19 @@ const taskList = document.getElementById("task-list");
 
 function displayStaticTasks() {
   const taskList = document.getElementById("task-list");
-  
+
   for (let i = 0; i < listHomework.length; i++) {
     const task = listHomework[i];
-    
+
     let priorityColor = "";
     if (task.priority === "High") priorityColor = "red";
     else if (task.priority === "Medium") priorityColor = "yellow";
     else if (task.priority === "Low") priorityColor = "green";
-    
+
     const taskItem = document.createElement("li");
-    taskItem.className = "gap-[8px] flex justify-between items-center p-3 rounded-tl-lg rounded-br-lg";
-    
+    taskItem.className =
+      "gap-[8px] flex justify-between items-center p-3 rounded-tl-lg rounded-br-lg mb-3";
+
     taskItem.innerHTML = `
         <div class="flex items-center gap-3">
             <span class=" bg-${priorityColor}-500"></span>
@@ -146,7 +144,7 @@ function displayStaticTasks() {
             <i class="fa-regular fa-trash-can" style="color: rgb(252, 135, 116);"></i>
         </button>
     `;
-    
+
     taskList.appendChild(taskItem);
   }
 }
